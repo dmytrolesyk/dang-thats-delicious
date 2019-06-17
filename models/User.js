@@ -22,11 +22,14 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  hearts: [
+    { type: mongoose.Schema.ObjectId, ref: 'Store' }
+  ],
 });
 
 userSchema.virtual('gravatar').get(function() {
   const hash = md5(this.email);
-  return `https://gravatar.com/${hash}?s=200`;
+  return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
